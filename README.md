@@ -20,7 +20,28 @@ A full-stack Flask web application to predict potential stock market crashes usi
 
 ## Project Structure
 
-project-root/ │ ├── app.py                     # Main Flask backend ├── templates/ │   ├── index.html             # Landing/Home page │   ├── crash_from_tweet.html  # Text-based crash prediction │   ├── crash_from_data.html   # CSV-based crash prediction │   ├── genai.html             # LangChain insights │   └── dashboard.html         # Power BI dashboard page │ ├── static/ │   ├── css/                   # Tailwind and custom styles │   ├── js/                    # JS scripts │   └── assets/                # Images, icons, etc. │ ├── models/ │   ├── tfidf_vectorizer.pkl   # Pretrained TFIDF vectorizer │   ├── sentiment_model.pkl    # Sentiment-based crash model │   └── market_model.pkl       # Market data-based crash model │ ├── uploads/                   # Uploaded CSVs ├── requirements.txt           # Dependencies └── README.md                  # Project documentation
+flaskapp/
+├── app.py
+├── testing.csv
+├── logistic.joblib
+├── scaler.joblib
+├── stockmodel.h5
+├── vectorizer.joblib
+│
+├── static/
+│   ├── img1.png
+│   ├── img2.png
+│   ├── img3.png
+│   ├── img4.png
+│   └── logo1.png
+│
+└── templates/
+    ├── base.html
+    ├── dashboard.html
+    ├── home.html
+    ├── insights.html
+    └── predict.html
+
 
 ## Setup Instructions
 
