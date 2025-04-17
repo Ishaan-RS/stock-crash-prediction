@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f7fa;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            color: #6b7280;
+        }
+
+        /* Dashboard layout */
+        .dashboard {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        /* Columns */
+        .column {
+            flex: 1 1 calc(50% - 10px);
+            min-width: 300px;
+        }
+
+        /* Cards */
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        /* Graph placeholders */
+        .graph-placeholder {
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f2f5;
+        }
+
+        .graph-placeholder img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 4px;
+        }
+
+        /* Enhanced Market Crashes Summary Styles */
+        .market-summary {
+            background-color: #f8fafc;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .market-summary p {
+            margin-bottom: 12px;
+            padding: 8px 12px;
+            background-color: white;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .market-summary p:last-child {
+            margin-bottom: 0;
+        }
+
+        .highlight {
+            font-weight: 600;
+            color: #1e40af;
+        }
+
+        .positive {
+            color: #10b981;
+        }
+
+        .negative {
+            color: #ef4444;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #1e40af;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title:before {
+            content: "▹";
+            margin-right: 8px;
+            color: #3b82f6;
+        }
+
+        .section-subtitle {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        /* Key Observations List */
+        .key-observations {
+            background-color: #f8fafc;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            border-left: 4px solid #10b981;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .key-observations ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin-top: 15px;
+        }
+
+        .key-observations li {
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            background-color: white;
+            border-radius: 6px;
+            position: relative;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .key-observations li:hover {
+            transform: translateX(3px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .key-observations li:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: #3b82f6;
+            border-radius: 6px 0 0 6px;
+        }
+
+        .key-observations .section-title {
+            color: #10b981;
+        }
+
+        .key-observations .section-title:before {
+            color: #10b981;
+        }
+
+        /* Color highlights */
+        .positive {
+            color: #10b981;
+            font-weight: 600;
+            background-color: #ecfdf5;
+            padding: 0 4px;
+            border-radius: 4px;
+        }
+
+        .negative {
+            color: #ef4444;
+            font-weight: 600;
+            background-color: #fef2f2;
+            padding: 0 4px;
+            border-radius: 4px;
+        }
+
+        .highlight {
+            color: #1e40af;
+            font-weight: 600;
+            background-color: #eff6ff;
+            padding: 0 4px;
+            border-radius: 4px;
+        }
+
+        /* Enhanced Table Styles */
+        .crash-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 15px 0;
+        }
+
+        .crash-table thead th {
+            background-color: #3b82f6;
+            color: white;
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+
+        .crash-table tbody tr {
+            transition: all 0.2s ease;
+        }
+
+        .crash-table tbody tr:hover {
+            background-color: #f0f7ff;
+        }
+
+        .crash-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e5e7eb;
+            vertical-align: top;
+        }
+
+        .crash-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .crash-table .year {
+            font-weight: 600;
+            color: #1e40af;
+        }
+
+        .crash-table .negative-return {
+            color: #ef4444;
+            font-weight: 600;
+        }
+
+        .crash-table .crash-severity {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .crash-table .severity-high {
+            background-color: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .crash-table .severity-medium {
+            background-color: #ffedd5;
+            color: #9a3412;
+        }
+
+        .crash-table .severity-low {
+            background-color: #ecfccb;
+            color: #365314;
+        }
+
+        /* Enhanced Recommendations */
+        .interpretation-container {
+            background-color: #f8fafc;
+            border-radius: 8px;
+            padding: 20px;
+            border-left: 4px solid #8b5cf6;
+        }
+
+        .recommendation {
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border-left: 3px solid #8b5cf6;
+            transition: all 0.2s ease;
+        }
+
+        .recommendation:hover {
+            transform: translateX(3px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .recommendation h3 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #5b21b6;
+            display: flex;
+            align-items: center;
+        }
+
+        .recommendation h3:before {
+            content: "▸";
+            margin-right: 8px;
+            color: #8b5cf6;
+        }
+
+        .recommendation p {
+            font-size: 14px;
+            color: #4b5563;
+            line-height: 1.5;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .column {
+                flex: 1 1 100%;
+            }
+            
+            .crash-table thead {
+                display: none;
+            }
+            
+            .crash-table tr {
+                display: block;
+                margin-bottom: 15px;
+                border-radius: 8px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                overflow: hidden;
+            }
+            
+            .crash-table td {
+                display: block;
+                text-align: right;
+                padding-left: 50%;
+                position: relative;
+            }
+            
+            .crash-table td:before {
+                content: attr(data-label);
+                position: absolute;
+                left: 15px;
+                width: calc(50% - 15px);
+                padding-right: 10px;
+                font-weight: 600;
+                text-align: left;
+                color: #3b82f6;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Analytics Dashboard</h1>
+            <p>Monitoring performance and insights</p>
+        </div>
+
+        <div class="dashboard">
+            <!-- Left Column - Graphs -->
+            <div class="column">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Annual Minute Return Trends</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="graph-placeholder">
+                            <img src="{{ url_for('static', filename='img1.png') }}" alt="Line graph showing sharp drops in 2011, 2015, 2020">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Overall Market Volatility</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="graph-placeholder">
+                            <img src="{{ url_for('static', filename='img2.png') }}" alt="Line graph showing sharp drops in 2011, 2015, 2020">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Daily Price Movement by Day</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="graph-placeholder">
+                            <img src="{{ url_for('static', filename='img3.png') }}" alt="Line graph showing sharp drops in 2011, 2015, 2020">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Minute Return by Hour</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="graph-placeholder">
+                            <img src="{{ url_for('static', filename='img4.png') }}" alt="Line graph showing sharp drops in 2011, 2015, 2020">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column - Insights -->
+            <div class="column">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Market Crashes Summary</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="market-summary">
+                            <div class="section-title">Crash Pattern Highlights</div>
+                            <div class="section-subtitle">Insights from Historical Data</div>
+        
+                            <p>Total Positive Days: <span class="highlight">5</span> — Market mostly <span class="negative">bearish</span> with few recoveries.</p>
+                            <p>Largest Gain: <span class="positive">+5,200</span> on Day 10 indicating a high volatility bounce.</p>
+                            <p>Largest Drop: <span class="negative">-5,200</span> on Day 3 confirming a sharp crash.</p>
+                        </div>
+        
+                        <div class="key-observations">
+                            <div class="section-title">Key Observations</div>
+                            <ul>
+                                <li>Highest gain: Day 10 with <span class="positive">+5.2K</span> movement.</li>
+                                <li>Largest drop: Day 3 with <span class="negative">-5.2K</span>, followed by Day 19 and 24 (<span class="negative">~-4.5K</span>).</li>
+                                <li>Only <span class="highlight">5 out of 17</span> trading days had positive movement — market mostly <span class="negative">bearish</span>.</li>
+                                <li>Strong recovery seen on Day 26 and 27 with over <span class="positive">+2K</span>.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Market Crashes / Dips (Minute Return Chart)</div>
+                    </div>
+                    <div class="card-content">
+                        <table class="crash-table">
+                            <thead>
+                                <tr>
+                                    <th>Year</th>
+                                    <th>Minute Return</th>
+                                    <th>Crash Magnitude</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="year">2011</td>
+                                    <td class="negative-return">-0.50</td>
+                                    <td>Drop of <span class="highlight">0.70</span> from 2010 (0.20 → -0.50) <span class="crash-severity severity-high">Severe</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="year">2013</td>
+                                    <td class="negative-return">-0.05</td>
+                                    <td>Drop of <span class="highlight">0.31</span> from 2012 (0.26 → -0.05) <span class="crash-severity severity-medium">Moderate</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="year">2015</td>
+                                    <td class="negative-return">-0.09</td>
+                                    <td>Drop of <span class="highlight">0.61</span> from 2014 (0.52 → -0.09) <span class="crash-severity severity-high">Severe</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="year">2019</td>
+                                    <td class="negative-return">-0.20 (est.)</td>
+                                    <td>Gradual fall continues <span class="crash-severity severity-low">Mild</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="year">2020</td>
+                                    <td class="negative-return">-0.50</td>
+                                    <td>Drop of <span class="highlight">0.48</span> from 2019 (-0.02 → -0.50) <span class="crash-severity severity-high">Severe</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Market Interpretation</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="interpretation-container">
+                            <div class="recommendation">
+                                <h3>Market Growth Phase</h3>
+                                <p>The market grew consistently from 2010 to 2015, with explosive growth in 2014-2015.</p>
+                            </div>
+                            <div class="recommendation">
+                                <h3>Rebound Period</h3>
+                                <p>2016 saw a mild dip, but it rebounded sharply in 2017-2019.</p>
+                            </div>
+                            <div class="recommendation">
+                                <h3>Major Crash</h3>
+                                <p>2020 experienced a major market crash, both in terms of minute returns (-0.50) and total value (-14.4%).</p>
+                            </div>
+                            <div class="recommendation">
+                                <h3>Cyclical Pattern</h3>
+                                <p>The market has shown cyclical crashes every few years: 2011, 2015, and 2020 being the biggest dips.</p>
+                            </div>
+                            <div class="recommendation">
+                                <h3>Volatility Increase</h3>
+                                <p>Volatility has increased significantly (11.35), indicating more unstable price action across time.</p>
+                            </div>
+                            <div class="recommendation">
+                                <h3>Time Analysis</h3>
+                                <p>The market is most volatile around 8 PM, based on the hourly average range.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

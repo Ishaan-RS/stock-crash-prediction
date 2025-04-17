@@ -1,0 +1,8 @@
+flask
+numpy
+pandas
+joblib
+tensorflow
+nltk
+matplotlib
+google-generativeai
