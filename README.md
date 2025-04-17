@@ -20,27 +20,8 @@ A full-stack Flask web application to predict potential stock market crashes usi
 
 ## Project Structure
 
-flaskapp/
-├── app.py
-├── testing.csv
-├── logistic.joblib
-├── scaler.joblib
-├── stockmodel.h5
-├── vectorizer.joblib
-│
-├── static/
-│   ├── img1.png
-│   ├── img2.png
-│   ├── img3.png
-│   ├── img4.png
-│   └── logo1.png
-│
-└── templates/
-    ├── base.html
-    ├── dashboard.html
-    ├── home.html
-    ├── insights.html
-    └── predict.html
+![WhatsApp Image 2025-04-17 at 11 44 01](https://github.com/user-attachments/assets/b90905fe-d9e7-4a41-b22c-543658a2b9ab)
+
 
 
 ## Setup Instructions
@@ -100,6 +81,31 @@ Example Tweet for Testing
 > "BREAKING: Global markets plummet as inflation hits record highs. Dow is down 1200 points. Analysts warn this could be the start of a major crash."
 
 
+Project Screenshots:
+
+![image](https://github.com/user-attachments/assets/7821114c-08fd-4abc-a40e-e0d714f245c3)
+
+![image](https://github.com/user-attachments/assets/f5179ef4-05ff-4efa-a912-b910766677ec)
+
+![image](https://github.com/user-attachments/assets/1979cd90-e4ab-4dd3-afe9-0a856c8c2e7e)
+
+![image](https://github.com/user-attachments/assets/f884b709-4306-45df-82c6-74545bc44a86)
+
+![image](https://github.com/user-attachments/assets/33401885-32af-44a9-a4db-260c4adef6e5)
+
+![image](https://github.com/user-attachments/assets/a1da4366-2aeb-49ef-91fe-4e36c8fb8bd6)
+
+![image](https://github.com/user-attachments/assets/8a0dfee7-351b-4c9e-8e2c-ff0121d06689)
+
+![image](https://github.com/user-attachments/assets/ab65f73c-d1a5-40d0-8092-4579fd951e86)
+
+![image](https://github.com/user-attachments/assets/bac6bce1-83d5-49f0-97fd-efaef054311d)
+
+![image](https://github.com/user-attachments/assets/0e118e75-be97-4d0d-a0bb-c2a36ed181b8)
+
+![image](https://github.com/user-attachments/assets/c6a4a567-54cb-4761-8c1e-176da70edb27)
+
+![image](https://github.com/user-attachments/assets/95ccbdd0-5326-49c5-9e80-9e25541580a2)
 
 ---
 
