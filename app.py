@@ -20,7 +20,7 @@ nltk.download('wordnet')
 stop_words = set(stopwords.words('english'))
 lemmatizer = WordNetLemmatizer()
 # === Set up LangChain Gemini LLM ===
-genai.configure(api_key="AIzaSyDnhUgdGxdzeZ6umLNAP2xES1CihSeBOAA")
+genai.configure(api_key="YOUR_SECRET_KEY")
 model = genai.GenerativeModel('gemini-1.5-flash')
 
 def generate_followup_insights(result):
